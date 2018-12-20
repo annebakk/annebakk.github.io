@@ -1,0 +1,132 @@
+---
+title: "Recycling at Penn"
+author: "Anne Bakken"
+date: "12/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("/Users/Thisfolder/Documents/MES classes/BDS 522")
+survey<-read.csv("survey results.csv")
+attach(survey)
+```
+
+## Introduction
+
+
+
+This project studies the recycling knowledge and behavior of University of Pennsylvania undergraduate students. While Penn has made a commitment to adhere to LEED standards for new buildings, the environmental performance of a building depends not only on its design, but also on the way it’s used by its inhabitants. Sustainable behavior includes many aspects such as conserving energy and water, reducing consumption of goods, and eliminating single-use items. However, this report will focus on recycling. 
+
+Effective recycling depends both on personal motivation and on infrastructure. The question of recycling behavior in college students, specifically, has been a matter of some interest, and several factors have been found to correlate to increased recycling in previous studies. Wright (2011) found that major course of study was predictive, with environmental majors reporting higher rates of recycling. However, the author cautions against extrapolating this finding to other populations without considering the range of demographic characteristics as well as access to recycling services.
+
+Another variable that may relate to recycling behavior is the students’ perception of institutional support for environmental sustainability. Watson et al. (2017) found a correlation between undergraduates’ behavior and their perception of the university’s authorization of recycling and other environmentally responsible behavior, which was seen to grant legitimacy to these efforts. 
+
+This study will test the hypotheses that studying an environmental major and perceiving a high level of support for environmental sustainability on the part of the University are correlated with more favorable recycling behavior.
+
+## Data and Methods
+
+The data reported here was collected as part of a team project for a class on sustainability at Penn. Undergraduate students were invited to complete an email survey describing their recycling habits and level of knowledge about the subject. As the survey was designed to meet the sustainability class’s requirements, more information was collected than will be investigated in this report, including demographic data. The purpose of the survey was to provide input that may be practically applied to determine best practices for college houses in the future. 
+
+A total of 40 students responded to the survey. Students were offered the chance to win one of three Amazon gift cards to encourage responsiveness. The respondents consisted of 34 women (85%) and 6 men. The majority of the students were in the first half of their Penn careers, with 13 freshmen, 15 sophomores, 7 juniors, and 5 seniors. 
+
+### Independent Variables
+
+For all relevant variables, the numbers in parentheses were used to code the responses for analysis. Students’ perceptions of the University’s support for recycling were measured with the following question:
+
+* How committed do you feel Penn is to environmental sustainability?
+    + Not very committed (1)
+    + Somewhat committed (2)
+    +	Very committed (3)
+    
+Students were asked to name their major area of study, and the following responses were coded as relating to the environment: 
+
+*	Earth Science (Concentration Geology)
+*	Systems Engineering and Environmental Science
+*	Earth science-Environmental Science Concentration
+*	Environmental Studies
+*	ENVS + Wharton in Business Analytics
+
+### Dependent Variables
+The following questions were asked to determine favorable recycling behavior and attitudes, as well as the students’ knowledge of Penn’s recycling policies:
+
+*	How often do you recycle at Penn? 
+    +	Never (1)
+    +	Rarely (2)
+    +	Sometimes (3)
+    +	Often (4)
+    +	Always (5)
+
+*	How committed are you to environmental sustainability? 
+    +	Not very committed (1)
+    +	Somewhat committed (2)
+    +	Very committed (3)
+
+*	Which of the following items do you think can be placed in the regular recycling bins? Check all that apply.
+    +	Plastic bags
+    +	Aluminum foil
+    +	Coffee cups
+    +	Pizza boxes
+    +	Napkins
+    +	Plastic takeout boxes
+    +	Takeout menus
+    +	Batteries
+    +	Electronics
+
+For this last question, the items that are officially accepted in the standard-issue blue bins are aluminum foil, plastic takeout boxes, and takeout menus. The number of these three items that were correctly checked was added to the number of the other six that were correctly left unchecked for the total correct score. A histogram of the scores is shown below (three respondents skipped this question; these NAs are not included in the results).
+
+```{r echo=FALSE}
+hist(total.correct,xlab="Total Correct Answers",main="Knowledge of Recycling Procedures")
+```
+
+Because the independent variables compare more than two values, we will use one-way ANOVA, reporting the F-values and p-values.
+
+## Results
+
+The respondents described themselves as being very environmentally conscious. As shown in the plot below, half reported that they always recycle at Penn, while another 40% often recycle. Similarly, more than half reported having a high level of commitment to sustainability, while only 5% said that they are not very committed.
+
+```{r echo=FALSE}
+plot(How.often.do.you.recycle.at.Penn.,main="Recycling Frequency")
+plot(How.committed.are.you.to.environmental.sustainability.,main="Students' Commitment to Sustainability")
+```
+
+Students’ perceptions of Penn’s commitment to environmental sustainability were more measured, with more than half responding that they feel the University is somewhat committed and only 15% responding that it is very committed (one additional student skipped this question). 
+
+```{r echo=FALSE}
+plot(How.committed.do.you.feel.Penn.is.to.environmental.sustainability.,main="Penn's Commitment to Sustainability")
+```
+
+### Relationships
+
+None of the relationships hypothesized were found to be significant. The ANOVA results appear below. The relationship that came the closest to significance was that between the students’ perception of Penn’s commitment to sustainability and their likelihood to recycle on campus. The F-value was 3.051, and the p-value 0.089. This may be a productive relationship to explore further in future studies.
+
+```{r}
+summary(aov(recycle.penn~penn.commitment))
+summary(aov(your.commitment~penn.commitment))
+summary(aov(total.correct~penn.commitment))
+summary(aov(recycle.penn~env))
+summary(aov(your.commitment~env))
+summary(aov(total.correct~env))
+```
+
+The only relationships that yielded significant results were outside of our hypotheses and are to be expected. For example, the student’s own commitment to sustainability was found to correlate to a high frequency of recycling, with an F-value of 8.336 and a p-value of .006. Again, however, this is not surprising and was not tested for in this study.
+
+```{r}
+summary(aov(recycle.penn~your.commitment))
+```
+
+### Limitations
+
+One of the limitations of the current study is the relatively small sample size. While 40 respondents is sufficient for statistical analysis, it represents a small portion of Penn’s student body and has high variability. The number of respondents with environmental majors (5) is particularly small and cannot be expected to be a representative sample. Additionally, as the students were reached via colleagues of the instructor and were not selected randomly from the entire student body, these results are not unbiased. Finally, the indications of recycling frequency depend on self-reported, subjective responses rather than observed data.
+
+## Conclusion
+
+We were not able to reject the null hypotheses. From these surveys, there is no evidence to indicate that either area of study or perception of institutional support has any relationship with Penn students’ recycling behavior.
+
+A more comprehensive study drawing a larger, more random sample of the student population may yield different results. It remains to be seen whether recycling at Penn is in line with the findings in the literature or whether there are other factors that have a greater impact. 
+
+## References
+
+Watson, L., Hegtvedt, K. A., Johnson, C., Parris, C. L., & Subramanyam, S. (2017). When Legitimacy Shapes Environmentally Responsible Behaviors: Considering Exposure to University Sustainability Initiatives. *Education Sciences*, 7(13).
+
+Wright, Y. L. (2011). Relating Recycling: Demographics, Attitudes, Knowledge and Recycling Behavior among UC Berkeley Students. *UC Berkeley Student Recycling.*

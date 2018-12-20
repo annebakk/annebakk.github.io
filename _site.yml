@@ -1,0 +1,11 @@
+name: "Recycling at Penn"
+output_dir: "."
+navbar:
+  title: "Recycling at Penn"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Project"
+      href: Bakken_BDS_522_final_project.html
